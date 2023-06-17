@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - drum-machine</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<body id='drum-machine'>
+  <div id='display-box'>
+    <h1 id='display'>Hello!</h1>
+  </div>
+  <div id='button-pad'>
+    <button id='tom-1' class='drum-pad level-1'>
+      Q
+      <audio id='Q' src='https://www.fesliyanstudios.com/play-mp3/6763' class='clip'>
+      </audio>
+    </button>
+    <button id='tom-2' class='drum-pad level-2'>
+      W
+      <audio id='W' src='https://www.fesliyanstudios.com/play-mp3/6726' class='clip'>
+      </audio>
+    </button>
+    <button id='tom-3' class='drum-pad level-3'>
+      E
+      <audio id='E' src='https://www.fesliyanstudios.com/play-mp3/6689' class='clip'>
+      </audio>
+    </button>
+    <button id='open-hat' class='drum-pad level-2'>
+      A
+      <audio id='A' src='https://www.fesliyanstudios.com/play-mp3/6711' class='clip'>
+      </audio>
+    </button>
+    <button id='crash' class='drum-pad level-3'>
+      S
+      <audio id='S' src='https://www.fesliyanstudios.com/play-mp3/6676' class='clip'>
+      </audio>
+    </button>
+    <button id='ride' class='drum-pad level-4'>
+      D
+      <audio id='D' src='https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Rides/462[kb]CYMRIDE7.wav.mp3' class='clip'>
+      </audio>
+    </button>
+    <button id='closed-hat' class='drum-pad level-3'>
+      Z
+      <audio id='Z' src='https://www.fesliyanstudios.com/play-mp3/6698' class='clip'>
+      </audio>
+    </button>
+    <button id='snare' class='drum-pad level-4'>
+      X
+      <audio id='X' src='https://sampleswap.org/samples-ghost/DRUMS%20(SINGLE%20HITS)/Snares/77[kb]hisharpsd.wav.mp3' class='clip'>
+      </audio>
+    </button>
+    <button id='kick' class='drum-pad level-5'>
+      C
+      <audio id='C' src='https://www.fesliyanstudios.com/play-mp3/6659' class='clip'>
+      </audio>
+    </button>
+    <input id='volume-slider' type='range' min='1' max='100' value='50' />
+  </div>
+
+</body>
+<!-- partial -->
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script>
+<script src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.6.0/jquery.min.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
