@@ -1,0 +1,33 @@
+
+<!doctype html>
+<html>
+  <head>
+    <title>Request Header Parser Microservice</title>
+    <link rel="stylesheet" href="/public/style.css">
+  </head>
+  <script>
+    window.onload = function(){
+      const url = window.location.href + 'api/whoami '
+      let a1 = document.getElementById('anchor-1');
+      a1.target = '_blank';
+      a1.href = `${url}`;
+      a1.innerText = `${url}`;
+
+    }
+  </script>
+  <body id="body">
+    <h1>Request Header Parser Microservice</h3>
+    <hr/>
+    <h3><b>Example Usage:</b></h3>
+    <div id='anchors'>
+      <a id="anchor-1" href=""></a>
+    </div>
+    <h3><b>Example Output:</b></h3>
+    <div id='ex-output'>
+      <samp>{<br>
+        &emsp;"ipaddress":&emsp;"159.20.14.100","language":"en-US,en;q=0.5",<br>
+        &emsp;"software":&emsp;"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:50.0) Gecko/20100101 Firefox/50.0"<br>
+        }</samp>
+    </div>
+  </body>
+</html>
