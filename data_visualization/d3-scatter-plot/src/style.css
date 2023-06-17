@@ -1,0 +1,41 @@
+body {
+  display: flex;
+  justify-content: center; 
+}
+
+.testing {
+  background-color: gray
+}
+
+#title {
+  font-size: 36px ;
+  font-family: "Open Sans", sans-serif;
+  font-weight: bold;
+}
+
+.legend-box {
+  stroke: black;
+  fill: grey;
+  opacity: .25;
+
+
+}
+
+.legend-dot {
+  r: 5;
+  stroke: black;
+}
+
+.dot {
+}
+
+#tooltip {
+  width: auto;
+  height: auto;
+  border: 1px solid grey;
+  border-radius: 3px;
+  position: absolute;
+  background: white;
+  padding: 5px;
+  text-align: left;
+}

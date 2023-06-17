@@ -1,0 +1,10 @@
+body {
+  display: flex;
+  justify-content: center;
+  font-family: Georgia;
+}
+
+.legend-box {
+  stroke: black;
+  fill: grey;
+  opacity: .25;
