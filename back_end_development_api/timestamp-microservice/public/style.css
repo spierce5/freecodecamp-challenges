@@ -1,0 +1,12 @@
+body {
+  display: flex; 
+  flex-direction: column; 
+  justify-content: center; 
+  align-items: center;
+}
+hr {
+  width: 100%;
+}
+a{
+  padding-top: 2em;
+}

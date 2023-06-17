@@ -1,0 +1,32 @@
+
+    <!doctype html>
+      <html>
+        <head>
+          <title>Timestamp Microservice</title>
+          <link rel="stylesheet" href="/public/style.css">
+        </head>
+        <script>
+          window.onload = function(){
+            const urls = {
+              'anchor-1': window.location.href + 'api/05-10-2023',
+              'anchor-2': window.location.href + 'api/1451001600000'
+            };
+            let a1 = document.getElementById('anchor-1');
+            a1.target = '_blank';
+            a1.href = `${urls['anchor-1']}`;
+            a1.innerText = `${urls['anchor-1']}`;
+
+            let a2 = document.getElementById('anchor-2');
+            a2.target = '_blank';
+            a2.href = `${urls['anchor-2']}`;
+            a2.innerText = `${urls['anchor-2']}`;
+          }
+        </script>
+        <body id="body">
+          <h1>Timestamp Microservice</h3>
+          <hr/>
+          <h3><b>Example Usage:</b></h3>
+          <a id="anchor-1" href=""></a>
+          <a id="anchor-2" href=""></a>
+        </body>
+      </html>
