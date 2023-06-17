@@ -1,0 +1,42 @@
+main {
+  font-family: IM Fell DW Pica, Georgia;
+}
+
+header {
+  margin: 10px 10px 10px 50px;
+  padding: 30px 15px 0 15px;
+  text-align: center;
+}
+
+h1 {
+  font-family: Fredericka The Great, Georgia;
+}
+
+.card {
+  margin: 10px;
+  background-color: #d1d1d1;
+  box-shadow: 0 0 20px;
+  border-radius: 1%
+}
+
+#img-div {
+  margin: 5px 5px 5px 5px;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  text-align: center;
+  align-items: center;
+}
+
+#image {
+  max-width: 65%;
+  heigh: auto;
+  border-radius: 1%
+  
+}
+
+#tribute-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
