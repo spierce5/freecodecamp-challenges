@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8">
+  <title>CodePen - Survey-Form</title>
+  <link rel="stylesheet" href="./style.css">
+
+</head>
+<body>
+<!-- partial:index.partial.html -->
+<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lora:400,400i,700">
+<header>
+  <h1 id="title">Cat Adoption Survey</h1>
+  <p id="description">Thank you for taking the time to help us get to know you!</p>
+</header>
+<body>
+  <div class="fullcard">
+    <div class="card-content">
+      <div class="card-text">
+        <form id="survey-form" action="#">
+          <label id="name-label" for="name">Name</label><input id="name" type="text" placeholder="Enter your name" required>
+          <label id="email-label" for="email">Email</label><input id="email" type="email" placeholder="Enter your email address" required>
+          <label id="number-label" for="number">What is the age of your oldest cat? </label><input id="number" type="number" min="0" max="30" placeholder="Enter cats age (0 if not applicable)">
+          <label id="min-age" for="number">What is the age of your youngest cat? </label><input id="min-age" type="number" min="0" max="30" placeholder="Enter cats age (0 if not applicable)">
+          <label for="dropdown">How many cats currently reside with you?</label><select id="dropdown">
+          <option value="0">None</option>
+          <option value="1">1</option>
+          <option value="2">2</option>
+          <option value="3">3</option>
+          <option value="4">4</option>
+          <option value="5">5</option>
+          <option value="more">More than 5</option>
+          </select>
+          <label for="q5">Which type of cat are you interested in adopting?
+            </label>
+          <label for="b1"><input id="kitten" value="kitten" type="radio" name="q5">Kitten</label>
+          <label for="b2"><input id="adult" value="adult cat" type="radio" name="q5">Adult Cat</label>
+          <label for="b3"><input id="elderly" value="elderly cat" type="radio" name="q5">Elderly Cat</label>
+          <label for="preferences">Select your preferences from the following items:</label>
+          <ul class="checkbox-grid">
+          <label for="declawed"><input type="checkbox" value="declawed" id="declawed" name="preferences">Declawed</label>
+          <label for="spayed-neutered"><input type="checkbox" value="spayed/neutered" id="spayed-neutered" name="preferences">Spayed/Neutered</label>
+          <label for="microchipped"><input type="checkbox" value="microchipped" id="microchipped" name="preferences">Microchipped</label>
+          <label for="vaccinated"><input type="checkbox" value="vaccinated" id="vaccinated" name="preferences">Vaccinated</label></ul>
+          <label for="comments">Comments</label><textarea id="comments" name="comments" rows="4"></textarea>
+          <hr>
+          <button id="submit">Submit</button>
+          
+        </form>
+      </div>
+    </div>
+  </div>
+</body>
+<!-- partial -->
+  <script src='https://cdn.freecodecamp.org/testable-projects-fcc/v1/bundle.js'></script><script  src="./script.js"></script>
+
+</body>
+</html>
