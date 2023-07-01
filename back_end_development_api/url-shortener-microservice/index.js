@@ -36,48 +36,67 @@ app.get("/api/shorturl/:shortUrlNum", (req, res) => {
   });
 });
 
+// app.post("/api/shorturl", (req, res) => {
+//   const { url } = req.body;
+//   try {
+//     let newUrl = new URL(url);
+//     console.log(newUrl);
+//     console.log(newUrl.href);
+//   } catch {
+//     res.sendStatus(500);
+//   }
+// });
+
 app.post("/api/shorturl", (req, res) => {
   const { url } = req.body;
-  let strippedUrl = url.replace(/^https?:\/\//i, "");
+  let href;
+  let hostname;
+  try {
+    let newUrl = new URL(url);
+    href = newUrl.href;
+    hostname = newUrl.hostname;
 
-  dns.lookup(strippedUrl, (err) => {
-    if (err) {
-      res.status(400).json({ error: "Invalid URL" });
-    } else {
-      const urlRecord = UrlModel.findOne({
-        original_url: url,
-      })
-        .then((doc) => {
-          if (doc) {
-            res.json({
-              original_url: url,
-              short_url: doc.short_url,
-            });
-          } else {
-            UrlModel.find()
-              .sort({ short_url: -1 })
-              .limit(1)
-              .then((doc) => {
-                const maxIndex = doc[0] ? doc[0].short_url + 1 : 0;
-                const newUrl = new UrlModel({
-                  original_url: url,
-                  short_url: maxIndex,
-                });
-                newUrl.save().then((doc) => {
-                  res.json({
-                    original_url: doc.original_url,
-                    short_url: doc.short_url,
-                    details: "New URL inserted.",
+    dns.lookup(hostname, (err) => {
+      if (err) {
+        res.status(400).json({ error: "Invalid URL" });
+      } else {
+        const urlRecord = UrlModel.findOne({
+          original_url: href,
+        })
+          .then((doc) => {
+            if (doc) {
+              res.json({
+                original_url: href,
+                short_url: doc.short_url,
+              });
+            } else {
+              UrlModel.find()
+                .sort({ short_url: -1 })
+                .limit(1)
+                .then((doc) => {
+                  const maxIndex = doc[0] ? doc[0].short_url + 1 : 0;
+                  const newUrl = new UrlModel({
+                    original_url: href,
+                    short_url: maxIndex,
+                  });
+                  newUrl.save().then((doc) => {
+                    res.json({
+                      original_url: doc.original_url,
+                      short_url: doc.short_url,
+                      details: "New URL inserted.",
+                    });
                   });
                 });
-              });
-          }
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }
-  });
+            }
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      }
+    });
+  } catch {
+    res.status(400).json({ error: "Invalid URL" });
+  }
 });
 
 const start = async () => {
