@@ -29,7 +29,7 @@ app.get("/api/shorturl/:shortUrlNum", (req, res) => {
     short_url: req.params.shortUrlNum,
   }).then((result) => {
     if (result) {
-      res.redirect(301, `https://${result.original_url}`);
+      res.redirect(301, result.original_url);
     } else {
       res.sendStatus(404);
     }
@@ -38,8 +38,9 @@ app.get("/api/shorturl/:shortUrlNum", (req, res) => {
 
 app.post("/api/shorturl", (req, res) => {
   const { url } = req.body;
+  let strippedUrl = url.replace(/^https?:\/\//i, "");
 
-  dns.lookup(url, (err) => {
+  dns.lookup(strippedUrl, (err) => {
     if (err) {
       res.status(400).json({ error: "Invalid URL" });
     } else {
