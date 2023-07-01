@@ -58,7 +58,7 @@ app.post("/api/shorturl", (req, res) => {
 
     dns.lookup(hostname, (err) => {
       if (err) {
-        res.status(400).json({ error: "invalid URL" });
+        res.status(400).json({ error: "invalid url" });
       } else {
         const urlRecord = UrlModel.findOne({
           original_url: href,
@@ -95,7 +95,7 @@ app.post("/api/shorturl", (req, res) => {
       }
     });
   } catch {
-    res.status(400).json({ error: "invalid URL" });
+    res.status(400).json({ error: "invalid url" });
   }
 });
 
