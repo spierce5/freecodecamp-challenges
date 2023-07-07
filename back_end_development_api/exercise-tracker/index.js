@@ -48,6 +48,34 @@ app.post("/api/users", (req, res) => {
     });
 });
 
+app.post("/api/users/:_id/exercises", (req, res) => {
+  const userId = req.params._id;
+  const { description, duration, date } = req.body;
+  let error;
+  if (!description) {
+    res.status(500).json({ error: "Description is required" });
+    error = "NoDescriptionError";
+  }
+  if (!duration) {
+    res.status(500).json({ error: "Duration is required" });
+    error = "NoDurationError";
+  }
+  if (!date) {
+    res.status(500).json({ error: "Date is required" });
+    error = "NoDateError";
+  }
+  if (!error) {
+    res.json({
+      id: userId,
+      description: description,
+      duration: duration,
+      date: date,
+    });
+  } else {
+    console.log(error);
+  }
+});
+
 const start = async () => {
   try {
     await mongoose.connect(
