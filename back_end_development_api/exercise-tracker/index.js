@@ -4,7 +4,7 @@ const cors = require("cors");
 require("dotenv").config();
 const bodyParser = require("body-parser");
 const mongoose = require("mongoose");
-const { UserModel } = require("./models/models");
+const { UserModel, ExerciseModel } = require("./models/models");
 
 const port = process.env.PORT || 3000;
 
@@ -14,6 +14,23 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
+});
+
+app.get("/api/users/:_id/logs", (req, res) => {
+  // res.send(req.query);
+  const { from, to, limit } = req.query;
+  const fromDate = new Date(from);
+  const toDate = new Date(to);
+
+  if (from && isNaN(fromDate)) {
+    res.json({ error: "Could not parse from-date." });
+  }
+
+  if (to && isNaN(toDate)) {
+    res.json({ error: "Could not parse to-date." });
+  }
+
+  res.json({ from: fromDate, to: toDate });
 });
 
 app.post("/api/users", (req, res) => {
@@ -51,29 +68,35 @@ app.post("/api/users", (req, res) => {
 app.post("/api/users/:_id/exercises", (req, res) => {
   const userId = req.params._id;
   const { description, duration, date } = req.body;
-  let error;
-  if (!description) {
-    res.status(500).json({ error: "Description is required" });
-    error = "NoDescriptionError";
-  }
-  if (!duration) {
-    res.status(500).json({ error: "Duration is required" });
-    error = "NoDurationError";
-  }
-  if (!date) {
-    res.status(500).json({ error: "Date is required" });
-    error = "NoDateError";
-  }
-  if (!error) {
-    res.json({
-      id: userId,
-      description: description,
-      duration: duration,
-      date: date,
+  UserModel.findOne({ _id: userId })
+    .then((user) => {
+      if (user) {
+        const newExercise = new ExerciseModel({
+          _id: userId,
+          username: user.username,
+          description: description,
+          duration: duration,
+          date: date,
+        });
+
+        newExercise
+          .save()
+          .then((result) => {
+            const fDate = new Date(result.date);
+            let formattedDoc = { ...result._doc };
+            formattedDoc.date = fDate.toDateString();
+            res.json({ formattedDoc });
+          })
+          .catch((err) => {
+            res.send(err);
+          });
+      } else {
+        res.json({ error: "User not found" });
+      }
+    })
+    .catch((err) => {
+      res.send(err);
     });
-  } else {
-    console.log(error);
-  }
 });
 
 const start = async () => {

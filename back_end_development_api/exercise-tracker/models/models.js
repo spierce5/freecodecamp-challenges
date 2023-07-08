@@ -9,4 +9,25 @@ const UserSchema = new mongoose.Schema({
 
 const UserModel = mongoose.model("User", UserSchema);
 
-module.exports = { UserModel };
+const ExerciseSchema = new mongoose.Schema({
+  _id: {
+    type: String,
+    required: true,
+  },
+  username: {
+    type: String,
+    required: true,
+  },
+  duration: {
+    type: Number,
+    required: true,
+  },
+  date: {
+    type: Date,
+    required: true,
+  },
+});
+
+const ExerciseModel = mongoose.model("Exercise", ExerciseSchema);
+
+module.exports = { UserModel, ExerciseModel };
