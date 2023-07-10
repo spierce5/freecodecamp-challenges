@@ -10,7 +10,7 @@ const UserSchema = new mongoose.Schema({
 const UserModel = mongoose.model("User", UserSchema);
 
 const ExerciseSchema = new mongoose.Schema({
-  _id: {
+  userId: {
     type: String,
     required: true,
   },

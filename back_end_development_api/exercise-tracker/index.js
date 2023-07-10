@@ -18,6 +18,7 @@ app.get("/", (req, res) => {
 
 app.get("/api/users/:_id/logs", (req, res) => {
   // res.send(req.query);
+  const { _id } = req.params;
   const { from, to, limit } = req.query;
   const fromDate = new Date(from);
   const toDate = new Date(to);
@@ -30,7 +31,30 @@ app.get("/api/users/:_id/logs", (req, res) => {
     res.json({ error: "Could not parse to-date." });
   }
 
-  res.json({ from: fromDate, to: toDate });
+  let filter = {
+    userId: _id,
+  };
+
+  if (!isNaN(fromDate)) {
+    if (!isNaN(toDate)) {
+      filter["date"] = { $gte: fromDate, $lte: toDate };
+    } else {
+      filter["date"] = { $gte: fromDate };
+    }
+  } else {
+    if (!isNaN(toDate)) {
+      filter["date"] = { $lte: toDate };
+    }
+  }
+
+  ExerciseModel.find(filter)
+    .limit(limit ? limit : 0)
+    .then((doc) => {
+      res.json(doc);
+    })
+    .catch((err) => {
+      res.send(err);
+    });
 });
 
 app.post("/api/users", (req, res) => {
@@ -72,7 +96,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
     .then((user) => {
       if (user) {
         const newExercise = new ExerciseModel({
-          _id: userId,
+          userId: userId,
           username: user.username,
           description: description,
           duration: duration,
