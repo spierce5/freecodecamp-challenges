@@ -14,16 +14,16 @@ const ExerciseSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  username: {
-    type: String,
-    required: true,
-  },
   duration: {
     type: Number,
     required: true,
   },
   date: {
     type: Date,
+    required: true,
+  },
+  description: {
+    type: String,
     required: true,
   },
 });

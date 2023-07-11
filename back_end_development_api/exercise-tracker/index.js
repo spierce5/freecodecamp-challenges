@@ -46,11 +46,21 @@ app.get("/api/users/:_id/logs", (req, res) => {
       filter["date"] = { $lte: toDate };
     }
   }
-
-  ExerciseModel.find(filter)
-    .limit(limit ? limit : 0)
-    .then((doc) => {
-      res.json(doc);
+  UserModel.findOne({ _id: _id })
+    .then((user) => {
+      ExerciseModel.find(filter)
+        .limit(limit ? limit : 0)
+        .then((doc) => {
+          res.json({
+            _id: _id,
+            username: user.username,
+            count: doc.length,
+            log: doc,
+          });
+        })
+        .catch((err) => {
+          res.send(err);
+        });
     })
     .catch((err) => {
       res.send(err);
@@ -97,7 +107,6 @@ app.post("/api/users/:_id/exercises", (req, res) => {
       if (user) {
         const newExercise = new ExerciseModel({
           userId: userId,
-          username: user.username,
           description: description,
           duration: duration,
           date: date,
