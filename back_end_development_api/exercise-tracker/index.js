@@ -16,6 +16,12 @@ app.get("/", (req, res) => {
   res.sendFile(__dirname + "/views/index.html");
 });
 
+app.get("/api/users", (req, res) => {
+  UserModel.find({}, { _id: 1, username: 1 }).then((result) => {
+    res.json(result);
+  });
+});
+
 app.get("/api/users/:_id/logs", (req, res) => {
   // res.send(req.query);
   const { _id } = req.params;
@@ -118,7 +124,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
             const fDate = new Date(result.date);
             let formattedDoc = { ...result._doc };
             formattedDoc.date = fDate.toDateString();
-            res.json({ formattedDoc });
+            res.json(formattedDoc);
           })
           .catch((err) => {
             res.send(err);
