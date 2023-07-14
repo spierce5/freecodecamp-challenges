@@ -37,36 +37,54 @@ app.get("/api/users/:_id/logs", (req, res) => {
     res.json({ error: "Could not parse to-date." });
   }
 
-  let filter = {
-    userId: _id,
-  };
+  // let filter = {
+  //   userId: _id,
+  // };
 
-  if (!isNaN(fromDate)) {
-    if (!isNaN(toDate)) {
-      filter["date"] = { $gte: fromDate, $lte: toDate };
-    } else {
-      filter["date"] = { $gte: fromDate };
-    }
-  } else {
-    if (!isNaN(toDate)) {
-      filter["date"] = { $lte: toDate };
-    }
-  }
+  // if (!isNaN(fromDate)) {
+  //   if (!isNaN(toDate)) {
+  //     filter["date"] = { $gte: fromDate, $lte: toDate };
+  //   } else {
+  //     filter["date"] = { $gte: fromDate };
+  //   }
+  // } else {
+  //   if (!isNaN(toDate)) {
+  //     filter["date"] = { $lte: toDate };
+  //   }
+  // }
   UserModel.findOne({ _id: _id })
     .then((user) => {
-      ExerciseModel.find(filter)
-        .limit(limit ? limit : 0)
-        .then((doc) => {
-          res.json({
-            _id: _id,
-            username: user.username,
-            count: doc.length,
-            log: doc,
-          });
-        })
-        .catch((err) => {
-          res.send(err);
-        });
+      const log = user.log.filter((exercise, idx) => {
+        if (!limit || limit > idx) {
+          if (isNaN(fromDate) || exercise.date >= fromDate) {
+            if (isNaN(toDate) || exercise.date <= toDate) {
+              return true;
+            }
+          }
+        }
+        return false;
+      });
+
+      res.json({
+        _id: user._id,
+        username: user.username,
+        count: log.length,
+        log: log,
+      });
+
+      // ExerciseModel.find(filter)
+      //   .limit(limit ? limit : 0)
+      //   .then((doc) => {
+      //     res.json({
+      //       _id: _id,
+      //       username: user.username,
+      //       count: doc.length,
+      //       log: doc,
+      //     });
+      //   })
+      //   .catch((err) => {
+      //     res.send(err);
+      //   });
     })
     .catch((err) => {
       res.send(err);
@@ -85,7 +103,7 @@ app.post("/api/users", (req, res) => {
           _id: _id,
         });
       } else {
-        const newUser = new UserModel({ username: username });
+        const newUser = new UserModel({ username: username, log: [] });
         newUser
           .save()
           .then((doc) => {
@@ -108,33 +126,24 @@ app.post("/api/users", (req, res) => {
 app.post("/api/users/:_id/exercises", (req, res) => {
   const userId = req.params._id;
   const { description, duration, date } = req.body;
-  UserModel.findOne({ _id: userId })
+  const newExercise = new ExerciseModel({
+    description: description,
+    duration: duration,
+    date: date,
+  });
+  UserModel.findOneAndUpdate({ _id: userId }, { $push: { log: newExercise } })
     .then((user) => {
-      if (user) {
-        const newExercise = new ExerciseModel({
-          userId: userId,
-          description: description,
-          duration: duration,
-          date: date,
-        });
-
-        newExercise
-          .save()
-          .then((result) => {
-            const fDate = new Date(result.date);
-            let formattedDoc = { ...result._doc };
-            formattedDoc.date = fDate.toDateString();
-            res.json(formattedDoc);
-          })
-          .catch((err) => {
-            res.send(err);
-          });
-      } else {
-        res.json({ error: "User not found" });
-      }
+      const response = {
+        _id: userId,
+        username: user.username,
+        date: new Date(date).toDateString(),
+        duration: duration,
+        description: description,
+      };
+      res.json(response);
     })
     .catch((err) => {
-      res.send(err);
+      res.json({ error: err });
     });
 });
 

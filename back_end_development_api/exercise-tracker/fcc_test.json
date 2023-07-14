@@ -1,0 +1,144 @@
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988548' }
+New User Response
+{
+  username: 'fcc_test_16892988548',
+  _id: new ObjectId("64b0a7a7bf99dac176d3e252")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988555' }
+New User Response
+{
+  username: 'fcc_test_16892988555',
+  _id: new ObjectId("64b0a7a7bf99dac176d3e255")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988564' }
+New User Response
+{
+  username: 'fcc_test_16892988564',
+  _id: new ObjectId("64b0a7a8bf99dac176d3e25b")
+}
+New Exercise Request
+[Object: null prototype] {
+  description: 'test',
+  duration: '60',
+  date: '1990-01-01'
+}
+New Exercise Response
+{
+  userId: '64b0a7a8bf99dac176d3e25b',
+  duration: 60,
+  date: 'Mon Jan 01 1990',
+  description: 'test',
+  _id: new ObjectId("64b0a7a8bf99dac176d3e25e"),
+  __v: 0
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988569' }
+New User Response
+{
+  username: 'fcc_test_16892988569',
+  _id: new ObjectId("64b0a7a9bf99dac176d3e261")
+}
+New Exercise Request
+[Object: null prototype] {
+  description: 'test',
+  duration: '60',
+  date: '1990-01-01'
+}
+New Exercise Response
+{
+  userId: '64b0a7a9bf99dac176d3e261',
+  duration: 60,
+  date: 'Mon Jan 01 1990',
+  description: 'test',
+  _id: new ObjectId("64b0a7a9bf99dac176d3e264"),
+  __v: 0
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988586' }
+New User Response
+{
+  username: 'fcc_test_16892988586',
+  _id: new ObjectId("64b0a7aabf99dac176d3e267")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988596' }
+New User Response
+{
+  username: 'fcc_test_16892988596',
+  _id: new ObjectId("64b0a7abbf99dac176d3e26e")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988606' }
+New User Response
+{
+  username: 'fcc_test_16892988606',
+  _id: new ObjectId("64b0a7acbf99dac176d3e275")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988616' }
+New User Response
+{
+  username: 'fcc_test_16892988616',
+  _id: new ObjectId("64b0a7adbf99dac176d3e27c")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988626' }
+New User Response
+{
+  username: 'fcc_test_16892988626',
+  _id: new ObjectId("64b0a7aebf99dac176d3e283")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988636' }
+New User Response
+{
+  username: 'fcc_test_16892988636',
+  _id: new ObjectId("64b0a7afbf99dac176d3e28a")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988646' }
+New User Response
+{
+  username: 'fcc_test_16892988646',
+  _id: new ObjectId("64b0a7b0bf99dac176d3e291")
+}
+New User Request
+[Object: null prototype] { username: 'fcc_test_16892988656' }
+New User Response
+{
+  username: 'fcc_test_16892988656',
+  _id: new ObjectId("64b0a7b1bf99dac176d3e298")
+}
+New Exercise Request
+[Object: null prototype] {
+  description: 'test',
+  duration: '60',
+  date: '1990-01-01'
+}
+New Exercise Response
+{
+  userId: '64b0a7b1bf99dac176d3e298',
+  duration: 60,
+  date: 'Mon Jan 01 1990',
+  description: 'test',
+  _id: new ObjectId("64b0a7b2bf99dac176d3e29b"),
+  __v: 0
+}
+New Exercise Request
+[Object: null prototype] {
+  description: 'test',
+  duration: '60',
+  date: '1990-01-03'
+}
+New Exercise Response
+{
+  userId: '64b0a7b1bf99dac176d3e298',
+  duration: 60,
+  date: 'Wed Jan 03 1990',
+  description: 'test',
+  _id: new ObjectId("64b0a7b2bf99dac176d3e29e"),
+  __v: 0
+}
