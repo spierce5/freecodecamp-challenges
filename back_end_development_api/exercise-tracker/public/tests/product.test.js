@@ -57,8 +57,20 @@ describe("POST /api/users/:_id/exercises", () => {
       const res = await request(app).post(`/api/users/${id}/exercises`).send({
         description: "Test without date",
         duration: 10,
+        date: "aaaa",
       });
       expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
+  });
+
+  it("current date should be submitted when no date is given", async () => {
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app).post(`/api/users/${id}/exercises`).send({
+        description: "Test without date",
+        duration: 10,
+      });
+      expect(res.body.date).toEqual(new Date().toDateString());
     });
   });
 

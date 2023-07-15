@@ -96,10 +96,14 @@ app.post("/api/users", (req, res) => {
 
 app.post("/api/users/:_id/exercises", (req, res) => {
   const userId = req.params._id;
-  const { description, duration, date } = req.body;
+  let { description, duration, date } = req.body;
 
-  if (date === "" || isNaN(new Date(date))) {
-    throw new Error("Invalid date");
+  if (!date || date === "") {
+    date = new Date();
+  } else {
+    if (isNaN(new Date(date))) {
+      throw new Error("Invalid date");
+    }
   }
 
   if (description === "" || description === null || !description) {
