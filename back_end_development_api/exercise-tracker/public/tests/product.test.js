@@ -32,22 +32,67 @@ describe("GET /api/users", () => {
 
 describe("POST /api/users/:_id/exercises", () => {
   it("The response returned will be the user object with the exercise fields added.", async () => {
-    const user = await UserModel.findOne({ username: "sam" });
-    const id = user._id;
-    const res = await request(app)
-      .post(`/api/users/${id}/exercises`)
-      .send({
-        description: `Test ${Date.now()}`,
-        duration: 5,
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app)
+        .post(`/api/users/${id}/exercises`)
+        .send({
+          description: `Test ${Date.now()}`,
+          duration: 5,
+          date: new Date(),
+          userId: "64aa320d0875fe1469072f3b",
+        })
+        .accept("Accept", "application/json");
+      expect(res.body).toHaveProperty("description");
+      expect(res.body).toHaveProperty("_id");
+      expect(res.body).toHaveProperty("username");
+      expect(res.body).toHaveProperty("date");
+      expect(res.body).toHaveProperty("duration");
+    });
+  });
+
+  it("should return an error when date is not valid", async () => {
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app).post(`/api/users/${id}/exercises`).send({
+        description: "Test without date",
+        duration: 10,
+      });
+      expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
+  });
+
+  it("should return an error when description is missing", async () => {
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app).post(`/api/users/${id}/exercises`).send({
+        duration: 10,
         date: new Date(),
-        userId: "64aa320d0875fe1469072f3b",
-      })
-      .accept("Accept", "application/json");
-    expect(res.body).toHaveProperty("description");
-    expect(res.body).toHaveProperty("_id");
-    expect(res.body).toHaveProperty("username");
-    expect(res.body).toHaveProperty("date");
-    expect(res.body).toHaveProperty("duration");
+      });
+      expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
+  });
+
+  it("should return an error when duration is missing", async () => {
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app).post(`/api/users/${id}/exercises`).send({
+        description: "missing duration",
+        date: new Date(),
+      });
+      expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
+  });
+
+  it("should return an error when duration is not a number", async () => {
+    await UserModel.findOne({ username: "sam" }).then(async (user) => {
+      const id = user._id;
+      const res = await request(app).post(`/api/users/${id}/exercises`).send({
+        duration: "abc",
+        date: new Date(),
+      });
+      expect(res.statusCode).toBeGreaterThanOrEqual(400);
+    });
   });
 });
 
@@ -61,8 +106,16 @@ describe("GET /api/users/:_id/logs", () => {
     expect(res.body).toHaveProperty("count");
     expect(res.body.log).toBeInstanceOf(Array);
     expect(res.body.count).toBeGreaterThan(0);
-    expect(res.body.log[0]).toHaveProperty("duration");
-    expect(res.body.log[0]).toHaveProperty("description");
-    expect(res.body.log[0]).toHaveProperty("date");
+  });
+
+  it("each item in the log array that is returned is an object that should have a description, duration, and date properties.", async () => {
+    const user = await UserModel.findOne({ username: "sam" });
+    const id = user._id;
+    const res = await request(app).get(`/api/users/${id}/logs`);
+    res.body.log.forEach((exercise) => {
+      expect(exercise).toHaveProperty("description");
+      expect(exercise).toHaveProperty("duration");
+      expect(exercise).toHaveProperty("date");
+    });
   });
 });

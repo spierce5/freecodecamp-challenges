@@ -6,4 +6,4 @@ const exercises = db.getCollection("exercises");
 
 const users = db.getCollection("users");
 // users.remove({});
-// users.find();
+users.remove({});

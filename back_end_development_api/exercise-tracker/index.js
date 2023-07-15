@@ -37,21 +37,6 @@ app.get("/api/users/:_id/logs", (req, res) => {
     res.json({ error: "Could not parse to-date." });
   }
 
-  // let filter = {
-  //   userId: _id,
-  // };
-
-  // if (!isNaN(fromDate)) {
-  //   if (!isNaN(toDate)) {
-  //     filter["date"] = { $gte: fromDate, $lte: toDate };
-  //   } else {
-  //     filter["date"] = { $gte: fromDate };
-  //   }
-  // } else {
-  //   if (!isNaN(toDate)) {
-  //     filter["date"] = { $lte: toDate };
-  //   }
-  // }
   UserModel.findOne({ _id: _id })
     .then((user) => {
       const log = user.log.filter((exercise, idx) => {
@@ -71,20 +56,6 @@ app.get("/api/users/:_id/logs", (req, res) => {
         count: log.length,
         log: log,
       });
-
-      // ExerciseModel.find(filter)
-      //   .limit(limit ? limit : 0)
-      //   .then((doc) => {
-      //     res.json({
-      //       _id: _id,
-      //       username: user.username,
-      //       count: doc.length,
-      //       log: doc,
-      //     });
-      //   })
-      //   .catch((err) => {
-      //     res.send(err);
-      //   });
     })
     .catch((err) => {
       res.send(err);
@@ -126,6 +97,23 @@ app.post("/api/users", (req, res) => {
 app.post("/api/users/:_id/exercises", (req, res) => {
   const userId = req.params._id;
   const { description, duration, date } = req.body;
+
+  if (date === "" || isNaN(new Date(date))) {
+    throw new Error("Invalid date");
+  }
+
+  if (description === "" || description === null || !description) {
+    throw new Error("Description required");
+  }
+
+  if (duration === "" || duration === null) {
+    throw new Error("Description required");
+  }
+
+  if (isNaN(duration)) {
+    throw new Error("Duration must be a number");
+  }
+
   const newExercise = new ExerciseModel({
     description: description,
     duration: duration,
