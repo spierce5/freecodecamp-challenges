@@ -23,18 +23,17 @@ app.get("/api/users", (req, res) => {
 });
 
 app.get("/api/users/:_id/logs", (req, res) => {
-  // res.send(req.query);
   const { _id } = req.params;
   const { from, to, limit } = req.query;
   const fromDate = new Date(from);
   const toDate = new Date(to);
 
   if (from && isNaN(fromDate)) {
-    res.json({ error: "Could not parse from-date." });
+    res.json({ error: "Could not parse from-date.", value: fromDate });
   }
 
   if (to && isNaN(toDate)) {
-    res.json({ error: "Could not parse to-date." });
+    res.json({ error: "Could not parse to-date.", value: toDate });
   }
 
   UserModel.findOne({ _id: _id })
@@ -102,7 +101,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
     date = new Date();
   } else {
     if (isNaN(new Date(date))) {
-      throw new Error("Invalid date");
+      throw new Error(`Invalid date: ${date}`);
     }
   }
 
@@ -115,7 +114,7 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   }
 
   if (isNaN(duration)) {
-    throw new Error("Duration must be a number");
+    throw new Error(`Duration must be a number. Value provided: ${duration}`);
   }
 
   const newExercise = new ExerciseModel({
