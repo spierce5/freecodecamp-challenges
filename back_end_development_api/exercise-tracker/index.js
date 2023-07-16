@@ -137,8 +137,8 @@ app.post("/api/users/:_id/exercises", (req, res) => {
       const response = {
         _id: userId,
         username: user.username,
-        date: new Date(date).toDateString(),
-        duration: duration,
+        date: formatDate(new Date(date)),
+        duration: parseFloat(duration),
         description: description,
       };
       res.json(response);
@@ -147,6 +147,30 @@ app.post("/api/users/:_id/exercises", (req, res) => {
       res.json({ error: err });
     });
 });
+
+const formatDate = (date) => {
+  const dayNames = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
+  const monthNames = [
+    "Jan",
+    "Feb",
+    "Mar",
+    "Apr",
+    "May",
+    "Jun",
+    "Jul",
+    "Aug",
+    "Sep",
+    "Oct",
+    "Nov",
+    "Dec",
+  ];
+  const dayNum =
+    date.getUTCDate() < 10 ? `0${date.getUTCDate()}` : date.getUTCDate();
+  let fmtDate = `${dayNames[date.getUTCDay()]} ${
+    monthNames[date.getUTCMonth()]
+  } ${dayNum} ${date.getUTCFullYear()}`;
+  return fmtDate;
+};
 
 const start = async () => {
   try {
