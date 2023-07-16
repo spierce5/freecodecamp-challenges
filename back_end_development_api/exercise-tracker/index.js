@@ -38,16 +38,24 @@ app.get("/api/users/:_id/logs", (req, res) => {
 
   UserModel.findOne({ _id: _id })
     .then((user) => {
-      const log = user.log.filter((exercise, idx) => {
-        if (!limit || limit > idx) {
-          if (isNaN(fromDate) || exercise.date >= fromDate) {
-            if (isNaN(toDate) || exercise.date <= toDate) {
-              return true;
+      const log = user.log
+        .filter((exercise, idx) => {
+          if (!limit || limit > idx) {
+            if (isNaN(fromDate) || exercise.date >= fromDate) {
+              if (isNaN(toDate) || exercise.date <= toDate) {
+                return true;
+              }
             }
           }
-        }
-        return false;
-      });
+          return false;
+        })
+        .map((exercise) => {
+          return {
+            duration: exercise.duration,
+            description: exercise.description,
+            date: formatDate(exercise.date),
+          };
+        });
 
       res.json({
         _id: user._id,
