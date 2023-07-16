@@ -98,7 +98,8 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   let { description, duration, date } = req.body;
 
   console.log(
-    `description: ${description} - ${typeof description}, 
+    `ID: ${userId}
+     description: ${description} - ${typeof description}, 
      duration: ${duration} - ${typeof duration}, 
      date: ${date} - ${typeof date}
     `
