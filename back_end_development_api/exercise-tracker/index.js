@@ -106,14 +106,16 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   }
 
   if (description === "" || description === null || !description) {
-    throw new Error("Description required");
+    throw new Error(
+      `Description required. Values: { description: ${description} }, { duration: ${duration} }, { date: ${date} }`
+    );
   }
 
   if (duration === "" || duration === null) {
-    throw new Error("Description required");
+    throw new Error("Duration required");
   }
 
-  if (isNaN(duration)) {
+  if (duration && isNaN(duration)) {
     throw new Error(`Duration must be a number. Value provided: ${duration}`);
   }
 

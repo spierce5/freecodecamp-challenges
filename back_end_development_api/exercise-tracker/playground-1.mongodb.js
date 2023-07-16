@@ -5,5 +5,5 @@ const exercises = db.getCollection("exercises");
 // exercises.remove({});
 
 const users = db.getCollection("users");
-// users.remove({});
 users.remove({});
+// users.find({});
