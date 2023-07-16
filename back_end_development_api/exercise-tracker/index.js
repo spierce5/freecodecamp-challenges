@@ -97,6 +97,13 @@ app.post("/api/users/:_id/exercises", (req, res) => {
   const userId = req.params._id;
   let { description, duration, date } = req.body;
 
+  console.log(
+    `description: ${description} - ${typeof description}, 
+     duration: ${duration} - ${typeof duration}, 
+     date: ${date} - ${typeof date}
+    `
+  );
+
   if (!date || date === "") {
     date = new Date();
   } else {
